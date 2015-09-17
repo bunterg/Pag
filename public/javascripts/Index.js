@@ -4,7 +4,7 @@ myApp.controller('AppCtrl', function($scope, $http, $animate, $mdDialog, $mdToas
       $scope.materia = '';
       $scope.isDisabled = false;
       
-      // blank user
+      // blank user .
       $scope.user = {
             userid: '',    
             name: '',
