@@ -1,0 +1,63 @@
+<!DOCTYPE>
+<html lang="en" ng-app="myApp">
+<head> 
+    <title>Bienvenido</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- Angular Material CSS now available via Google CDN; version 0.10.1 used here -->
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
+    <style>
+    img {
+        height: auto !important;
+        max-width: 80%;
+    }
+    body {
+        background: #443BAD;
+        height: auto;
+        min-height: 100%;
+    }
+    md-input-container{
+        color:white !important;
+    }
+    #search-bar{ 
+        width: auto;
+        min-width: 60%;
+    }
+    [ng cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { 
+        display: none !important;
+    }    
+    </style>
+</head>
+<body ng-cloak ng-controller="AppCtrl">    
+	<!--boton inicio sesion showLogIn($event)-->
+    <div layout="row" layout-align="end start">
+                <md-button class="md-raised md-primary" ng-click="showLogIn($event)" style=" background: #43A047;">Acceder</md-button>
+    </div>
+    <br>
+    <div layout="column" layout-align="center center">
+        <img src="img/logoL.png">
+        <md-input-container md-no-float  id="search-bar">
+                <md-whiteframe class="md-whiteframe-z1" style="background: white; border-radius: 4px;"  layout layout-margin layout-padding layout-align="center center">
+                <md-icon md-svg-src="img/icons/magnify.svg"></md-icon>
+                <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materia">
+                </md-whiteframe>
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="crearMateria()" style=" background: #43A047;">Crear Materia</md-button>
+    </div>
+    <!-- Angular Material Dependencies -->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+
+    <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    
+    
+    <!-- AQUI VA EL SCRIPT -->
+    
+    <script src="javascripts/Index.js"></script>
+</body>
+</html>

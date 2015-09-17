@@ -1,0 +1,74 @@
+<!DOCTYPE>
+<html lang="en" ng-app="myApp">
+<head> 
+    <title>LCC Creador Materia</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- Angular Material CSS now available via Google CDN; version 0.10.1 used here -->
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
+    <style>
+    .card-5 {
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    }
+    [ng cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { 
+        display: none !important;
+    }    
+    </style>
+</head>
+<body ng-cloak ng-controller="AppCtrl">
+    <!--div layout="row" layout-align="end start">
+                <md-button class="md-raised md-primary" ng-click="showLogIn($event)" style=" background: #43A047;">Acceder</md-button>
+    </div-->
+    <md-toolbar class="md-primary">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Back" ng-click="regresar()">
+                <md-icon md-svg-icon="img/icons/arrow-left.svg"></md-icon>
+            </md-button>
+            <h2>
+                <span>Creación de materia</span>
+            </h2>
+        </div>
+    </md-toolbar>
+    <br/>
+    <div layout="column" layout-align="center center">
+    <md-card style="width: 70%;" class="card-5">
+        <md-card-content layout="column">
+            <h2>Creacion de materia</h2>
+            <md-input-container>
+                <label>Titulo de la materia</label>
+                <input ng-model="user.title">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Descripción</label>
+                <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea>
+            </md-input-container>
+            <br/>
+            <h2 class="md-title">Etiquetas por defecto</h2>
+            <md-chips ng-model="etiquetas" readonly="true"></md-chips>
+            <br/>
+            <h2 class="md-title">Etiquetas personalizadas</h2>
+            <md-chips ng-model="etiquetasPersonalizadas" readonly="false"></md-chips>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button class="md-warn">Cancelar</md-button>
+            <md-button class="md-raised md-primary">Finalizar</md-button>
+        </div>
+    </md-card>    
+    </div>    
+<!-- Angular Material Dependencies -->
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+
+    <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    
+    
+    <!-- AQUI VA EL SCRIPT -->
+    
+    <script src="javascripts/creadorMateria.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<md-dialog aria-label="LogIn">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Iniciar Sesión</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div>
+      <div ng-show="reg">
+        <md-input-container >
+          <!-- Use floating placeholder instead of label -->
+          <md-icon md-svg-src="img/icons/email.svg" class="email"></md-icon>
+          <input ng-model="user.email" type="email" placeholder="Correo" ng-required="true">
+        </md-input-container>
+        <md-input-container >
+          <!-- Use floating placeholder instead of label -->
+          <md-icon md-svg-src="img/icons/account.svg" class="key"></md-icon>
+          <input ng-model="user.name" type="text" placeholder="Nombre">
+        </md-input-container>
+      </div>  
+      <md-input-container >
+          <!-- Use floating placeholder instead of label -->
+          <md-icon md-svg-src="img/icons/account.svg" class="account"></md-icon>
+          <input ng-model="user.userid" type="text" placeholder="Usuario" ng-required="true">
+        </md-input-container>
+        <md-input-container >
+          <!-- Use floating placeholder instead of label -->
+          <md-icon md-svg-src="img/icons/key.svg" class="key"></md-icon>
+          <input ng-model="user.pass" type="password" placeholder="Contraseña">
+        </md-input-container>
+        <md-checkbox ng-model="reg" aria-label="Checkbox 1" class="md-primary">
+          Registrar
+        </md-checkbox>
+    </div>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <div ng-show="reg">
+      <md-button ng-click="answer('cancel')"  class="md-primary">
+        Cancelar
+      </md-button>
+      <md-button target="_blank" ng-click="registrar('registrar')" md-autofocus class="md-raised md-primary" style="margin-right:20px;">
+        Registrar
+      </md-button>
+    </div>
+    <div ng-hide="reg">
+      <md-button ng-click="Google('google')" target="_blank" md-autofocus class="md-raised md-warn">
+        G+
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('cancel')"  class="md-primary">
+      Cancelar
+      </md-button>
+      <md-button target="_blank" ng-click="LogIn('login')" md-autofocus class="md-raised md-primary" style="margin-right:20px;">
+        Acceder
+      </md-button>
+    </div>
+  </div>
+  </form>
+</md-dialog>
