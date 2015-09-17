@@ -4,9 +4,9 @@ var mongoose = restful.mongoose;
 
 // Schema
 var productSchema = new mongoose.Schema({
-    userid: String,    
+    userid: { type: [String], unique: true }, // field level
     name: String,
-    email: String,    
+    email: { type: [String], unique: true },    
     pass: String
 });
 

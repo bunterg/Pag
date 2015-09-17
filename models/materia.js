@@ -4,8 +4,10 @@ var mongoose = restful.mongoose;
 
 // Schema
 var productSchema = new mongoose.Schema({
-    materiaID: String,    
-    name: String
+    materiaID: { type: [String], unique: true },    
+    name: String,
+    descripcion: String,    
+    tags: [{ name: String, color: Number }]
 });
 
 // Return model
