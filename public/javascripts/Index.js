@@ -1,4 +1,5 @@
 var myApp = angular.module('myApp', ['ngMaterial']);
+//app controller
 myApp.controller('AppCtrl', function($scope, $http, $animate, $mdDialog, $mdToast, $window) {
       // buscador
       $scope.materia = '';
@@ -11,7 +12,6 @@ myApp.controller('AppCtrl', function($scope, $http, $animate, $mdDialog, $mdToas
             email: '',    
             pass: '',
       };
-      
       //buscar materia
       $scope.buscar = function() {
             console.log($scope.materia);

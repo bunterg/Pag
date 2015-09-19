@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 // dbconn
-mongoose.connect('mongodb://localhost/rest_test');
+mongoose.connect('mongodb://localhost/lcc');
 
 // ROUTER
 var index = require('./routes/index');
