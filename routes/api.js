@@ -3,9 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 /* reductor de id
-	var shortId = require('short-mongo-id');
-	var id = shortId("507f191e810c19729de860ea"); // returns "iTxuMF" 
-*/
+ var shortId = require('short-mongo-id');
+ var id = shortId("507f191e810c19729de860ea"); // returns "iTxuMF"
+ */
 // Models
 var Product = require('../models/product');
 var User = require('../models/user');
@@ -15,14 +15,24 @@ var Materia = require('../models/materia');
 Product.methods(['get', 'put', 'post', 'delete']);
 Product.register(router, '/products');
 
-User.methods(['get', 'put', 'post']);
-User.register(router, '/users');
+User.api.methods(['get', 'put', 'post', 'delete']);
+User.api.after('get', function (req, res, next) {
+    console.log(req.body);
+    console.log("asdasd");
+    //importate sino bloquea la transacción
+    next();
+});
+User.api.register(router, '/users');
 
-Materia.methods(['get', 'put']);
-Materia.register(router, '/materias');
+Materia.api.methods(['get', 'put']);
+Materia.api.register(router, '/materias');
 
-router.post('/materias', function (req, res) {
-	console.log(req.body);
-})
+//modelos
+router.get('/model/users', function(req, res) {
+    res.send(User.modelo.tree);
+});
+router.get('/model/materia', function(req, res) {
+    res.json(Materia.modelo.tree);
+});
 // Return router
 module.exports = router;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <title>LCC Principal</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- Angular Material CSS now available via Google CDN; version 0.10.1 used here -->
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
+
+    <style>
+        [ng-cloak], [data-ng-cloak], [x-ng-cloak]{
+            display: none !important;
+        }
+    </style>
+<body ng-cloak ng-controller="AppCtrl">
+    <md-toolbar class="md-primary">
+        <div class="md-toolbar-tools">
+            <h2 hide-sm>
+                <span>{{user.nombre}}</span>
+            </h2>
+            <md-input-container md-no-float  id="search-bar" style="padding-top: 24px;" flex layout-align="center center">
+                <md-whiteframe class="md-whiteframe-z1" style="background: white; border-radius: 4px;min-width: 70%"  layout layout-margin layout-padding layout-align="center center">
+                    <md-icon md-svg-src="img/icons/magnify.svg" style="color: grey;"></md-icon>
+                    <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materia">
+                </md-whiteframe>
+            </md-input-container>
+        </div>
+    </md-toolbar>
+    <br/>
+
+    <div layout="column" layout-align="center center" ng-hide="tieneMaterias">
+        <!--img src="img/logoL.png"-->
+        <h1 style="color: darkgray;">Upss! no tienes materias, usa el buscador para encontar, o crea una materia desde el boton inferior</h1>
+    </div>
+
+
+    <!-- aca va el action boton-->
+    <div>
+        <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="MateriaNueva" ng-click="crearMateria($event)">
+            <md-icon md-svg-src="img/icons/book-open.svg"></md-icon>
+        </md-button>
+    </div>
+    <!-- Angular Material Dependencies -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+
+    <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+
+
+    <!-- AQUI VA EL SCRIPT -->
+
+    <script src="javascripts/main.js"></script>
+</body>
+</html>
