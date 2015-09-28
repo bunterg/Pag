@@ -1,25 +1,22 @@
 var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
-//app controller
 myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToast, $window, $cookies) {
 
-    // buscador
-    $scope.materia = '';
     $scope.isDisabled = false;
 
-    if ($cookies.getObject("usuario") === undefined) {
-        $http.get('/api/model/users').then(function(response){
-            $scope.user = response.data;
-        });
-        console.log($scope.user);
-    } else {
-        $scope.user = $cookies.getObject("usuario");
+    //revisar usuario ya inicio sesión
+    if ($cookies.getObject("usuario") === undefined)
+        $scope.user = {};
+    else
         $window.location.href = '/main';
-    }
+
     //buscar materia
+    //TODO AGREGAR BUSQUEDA
     $scope.buscar = function () {
-        console.log($scope.materia);
-        $scope.isDisabled = true;
-        //buscar
+        //$scope.isDisabled = true;
+        $cookies.put('materiaBuscar',$scope.materia);
+        //codigo o nombre?
+        //$window.location.href = '/main/buscar?nombre='+$scope.materia;
+        //$window.location.href = '/main/buscar?short_id='+$scope.materia;
     };
 
     // mostrar dialog de login
@@ -46,40 +43,24 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToa
 
 
 function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window, user) {
-    console.log("response");
-    $scope.Google = function (answer) {
-        $mdDialog.hide(answer);
-    };
-    $scope.registrar = function (answer) {
-        //test de redirect
+    $scope.registrar = function () {
+        //REGISTRO DE USUARIO
         $http.post('/api/users', user).
             then(function (response) {
-                console.log(response);
-                $cookies.putObject("usuario", user);
+                $cookies.putObject("usuario", response.data[0]);
                 $window.location.href = '/main';
             }, function (response) {
                 console.log("error");
             });
     };
-    $scope.LogIn = function (answer) {
+    $scope.LogIn = function () {
         //Consulta en db de login
         $http.get('/api/users', {params: {nombre_usuario: user.nombre_usuario, pass: user.pass}}).
             then(function (response) {
-                //resultado de consulta (consulta exitosa)
-                console.log(response.data[0]);
                 if(response.data[0]===undefined) {
-                    //El usuario o contrasena incorrecto o no existe
-                    //$mdToast no esta funcionando
                     $mdToast.show(
                         $mdToast.simple()
-                            .content('Error!')
-                            .position({
-                                bottom: true,
-                                top: false,
-                                left: false,
-                                right: true
-                            })
-                            .hideDelay(3000)
+                            .content('Datos de conexión invalidos!')
                     );
                 } else {
                     //inicio de sesion correcta
@@ -95,8 +76,5 @@ function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window,
     };
     $scope.cancel = function () {
         $mdDialog.cancel();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
     };
 }

@@ -13,16 +13,16 @@
                 <h2>Creacion de materia</h2>
                 <md-input-container>
                     <label>Titulo de la materia</label>
-                    <input ng-model="materia" title="">
+                    <input ng-model="materia.nombre" title="">
                 </md-input-container>
                 <md-input-container flex>
                     <label>Descripción</label>
-                    <textarea ng-model="user.biography" columns="1" md-maxlength="150" maxlength="150"></textarea>
+                    <textarea ng-model="materia.descripcion" columns="1" md-maxlength="150" maxlength="150"></textarea>
                 </md-input-container>
                 <br/>
 
                 <h2 class="md-title">Etiquetas por defecto</h2>
-                <md-chips ng-model="etiquetas" readonly="true"></md-chips>
+                <md-chips ng-model="materia.etiquetas" readonly="true"></md-chips>
                 <br/>
 
                 <h2 class="md-title">Etiquetas personalizadas</h2>
@@ -30,10 +30,10 @@
             </div>
         </md-dialog-content>
         <div class="md-actions" layout="row" >
-                <md-button ng-click="answer('cancel')"  class="md-warn">
+                <md-button ng-click="hide()"  class="md-warn">
                     Cancelar
                 </md-button>
-                <md-button ng-click="registrar('registrar')" class="md-raised md-primary" style="margin-right:20px;">
+                <md-button ng-click="crearMateria()" class="md-raised md-primary" style="margin-right:20px;">
                     Registrar
                 </md-button>
         </div>

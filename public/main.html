@@ -15,32 +15,39 @@
             display: none !important;
         }
     </style>
+</head>
 <body ng-cloak ng-controller="AppCtrl">
-    <md-toolbar class="md-primary">
+    <md-toolbar class="md-primary md-tall">
         <div class="md-toolbar-tools">
-            <h2 hide-sm>
-                <span>{{user.nombre}}</span>
+            <h2 hide-sm ng-hide="noInicio">
+                <span>{{user.nombre | uppercase}}</span>
             </h2>
+            <md-button class="md-raised md-primary" ng-click="showLogIn($event)" style=" background: #43A047;" ng-show="noInicio">Acceder</md-button>
             <md-input-container md-no-float  id="search-bar" style="padding-top: 24px;" flex layout-align="center center">
                 <md-whiteframe class="md-whiteframe-z1" style="background: white; border-radius: 4px;min-width: 70%"  layout layout-margin layout-padding layout-align="center center">
                     <md-icon md-svg-src="img/icons/magnify.svg" style="color: grey;"></md-icon>
-                    <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materia">
+                    <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materiaB">
                 </md-whiteframe>
             </md-input-container>
+            <md-button class="md-raised md-warn" ng-click="salir()" ng-hide="noInicio">Salir</md-button>
         </div>
     </md-toolbar>
+    <!-- usar toolbar alto para incluir data adicional como subtitulos-->
     <br/>
 
-    <div layout="column" layout-align="center center" ng-hide="tieneMaterias">
-        <!--img src="img/logoL.png"-->
-        <h1 style="color: darkgray;">Upss! no tienes materias, usa el buscador para encontar, o crea una materia desde el boton inferior</h1>
+    <div layout="column" layout-align="center center" style="max-width: 90%;" ng-hide="tieneMaterias">
+        <h1 style="color: darkgray; max-width: 90%;"  ng-hide="noInicio">Upss! no tienes materias, usa el buscador para encontar, o crea una materia desde el boton inferior</h1>
+        <h1 style="color: darkgray; max-width: 90%;"  ng-show="noInicio">Upss! no iniciaste sesión asegurate de iniciar sesión para poder interactuar con tus asignaturas</h1>
     </div>
 
+    <!-- TODO 3 OPCIONES: 3URL, 3TEMPLATE, 1 SOLO TEMPLATE DISTINTA DATA-->
+    <div>
+    </div>
 
     <!-- aca va el action boton-->
-    <div>
+    <div  ng-hide="noInicio">
         <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="MateriaNueva" ng-click="crearMateria($event)">
-            <md-icon md-svg-src="img/icons/book-open.svg"></md-icon>
+            <md-icon md-svg-src="img/icons/note-plus-outline.svg"></md-icon>
         </md-button>
     </div>
     <!-- Angular Material Dependencies -->
@@ -52,10 +59,7 @@
 
     <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
-
-
     <!-- AQUI VA EL SCRIPT -->
-
     <script src="javascripts/main.js"></script>
 </body>
 </html>

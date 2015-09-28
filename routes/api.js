@@ -17,9 +17,8 @@ Product.register(router, '/products');
 
 User.api.methods(['get', 'put', 'post', 'delete']);
 User.api.after('get', function (req, res, next) {
-    console.log(req.body);
-    console.log("asdasd");
-    //importate sino bloquea la transacción
+    //console.log(req.body);
+    //importate sin next(); sino bloquea la transacción
     next();
 });
 User.api.register(router, '/users');
@@ -29,10 +28,11 @@ Materia.api.register(router, '/materias');
 
 //modelos
 router.get('/model/users', function(req, res) {
-    res.send(User.modelo.tree);
+    //console.log(User.modelo());
+    res.send(User.modelo());
 });
 router.get('/model/materia', function(req, res) {
-    res.json(Materia.modelo.tree);
+    res.json(Materia.modelo());
 });
 // Return router
 module.exports = router;

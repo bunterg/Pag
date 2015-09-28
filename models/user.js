@@ -14,4 +14,4 @@ var Schema = new mongoose.Schema({
 
 // Return model
 //module.exports = restful.model('Users', productSchema);
-module.exports = {modelo: Schema, api: restful.model('Users', Schema)};
+module.exports = {modelo: mongoose.model('Users',Schema), api: restful.model('Users', Schema)};

@@ -9,8 +9,8 @@ var Schema = new mongoose.Schema({
     nombre: String,
     descripcion: String,
     disponible: { type: Boolean, default: true},    
-    etiquetas: [{ nombre: String, color: Number }]
+    etiquetas: [String]
 });
 
 // Return model
-module.exports = {modelo: Schema, api: restful.model('Materias', Schema)};
+module.exports = {modelo: mongoose.model('Materias',Schema),api : restful.model('Materias', Schema)};
