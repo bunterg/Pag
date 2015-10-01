@@ -2,15 +2,25 @@
  * Created by Bernardo on 9/27/2015.
  */
 var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
-myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToast, $window, $cookies) {
-    $cookies.materia = {
-        nombre: Lenguaje,
-        status: 3,
+myApp.controller('AppCtrl', function ($scope) {
+    $scope.materias = [{
+        nombre: 'Título de la materia',
+        codigo: 'iTxuMF',
+        meta: {
+            background: 'gray'
+        },
+        status: {
+            img: 'bell',
+            hint: 'Hay actividades'
+        },
         creador: {
-            nombre: 'Gaby',
+            nombre: 'Nombre del creador',
             imagen: 'img/icons/account.svg'
-        }
+        },
+        ultimoPost: Date.now()
+    }];
+    $scope.select = function (materia) {
+        console.log(materia);
+    }
 
-    };
-    $cookies.status = ['bell','bell-off','bell-outline']
 });

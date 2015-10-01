@@ -44,10 +44,11 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $window, $cookies
             locals: {
                 user: $scope.user
             }
-        })
-            .then(function (logIn) {
-                console.log("dialog close");
-            });
+        }) .then(function (logIn) {
+            console.log("dialog close");
+        }, function () {
+            console.log('You cancelled the dialog.');
+        });
     };
     // mostrar dialog de login
     $scope.showLogIn = function (ev) {
@@ -84,9 +85,8 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $window, $cookies
         );
     };*/
 });
-
-function DialogController($scope, $cookies, $mdDialog, user) {
-    //$scope.materia = $cookies.get('materiaB');
+//DIALOGO CREADOR MATERIAS
+function DialogController($scope, $cookies, $mdDialog, $http, $window) {
     $scope.materia = {
         etiquetas : ['General']
     };
@@ -96,9 +96,39 @@ function DialogController($scope, $cookies, $mdDialog, user) {
         console.log("inserte: ",$chip);
         return $chip;
     };
+    //actualizar Usuario
+    var actualizar = function () {
+        $scope.user.materias = $scope.user.materias.concat($scope.materia._id);
+        $http.put('/api/users/' + $scope.user._id, $scope.user).then(
+            function (response) {
+                console.log(response.data);
+                $cookies.putObject("usuario", response.data);
+                $http.put('/api/materias/' + $scope.materia._id, $scope.materia).then(
+                    function (response) {
+                        $window.location.reload();
+                    }, function (response) {
+                        console.log(response.data);
+                    }
+                );
+            }, function (response) {
+                console.log(response.data);
+            }
+        );
+    };
     //intsertar materia
     $scope.crearMateria = function () {
         $scope.materia.etiquetas =  $scope.materia.etiquetas.concat($scope.etiquetasPersonalizadas);
+        $scope.materia.creador = $scope.user._id;
+        console.log($scope.materia);
+        $http.post('/api/materias', $scope.materia).
+            then(function (response) {
+                console.log(response.data);
+                $cookies.putObject("materia", response.data);
+                $scope.materia = response.data;
+                actualizar();
+            }, function (response) {
+                console.log(response);
+            });
     };
     //metodos de  mdDialog
     $scope.hide = function () {
@@ -108,7 +138,7 @@ function DialogController($scope, $cookies, $mdDialog, user) {
         $mdDialog.cancel();
     };
 }
-
+// DIALOGO INICIO SESIÓN + REGISTRO NO SE USA POR AHORA
 function DialogControllerLogin($scope, $http, $cookies, $mdDialog, $mdToast, $window, user, noInicio) {
     $scope.registrar = function () {
         console.log(user);

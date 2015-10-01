@@ -9,9 +9,9 @@ var Schema = new mongoose.Schema({
     correo: { type: String, unique: true },    
     pass: { type: String, min: 5, max:12},
     imagen: String,
-    meta: mongoose.Schema.Types.Mixed
+    meta: mongoose.Schema.Types.Mixed,
+    materias: [{type: mongoose.Schema.Types.ObjectId, ref: 'Materias'}]
 });
 
 // Return model
-//module.exports = restful.model('Users', productSchema);
-module.exports = {modelo: mongoose.model('Users',Schema), api: restful.model('Users', Schema)};
+module.exports = restful.model('Users', Schema);

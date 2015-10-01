@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <title>test</title>
 
@@ -9,16 +9,36 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <!-- Angular Material CSS now available via Google CDN; version 0.10.1 used here -->
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
-
+    <link rel="stylesheet" href="stylesheets/colores.css">
     <style>
         [ng-cloak], [data-ng-cloak], [x-ng-cloak]{
             display: none !important;
         }
     </style>
 </head>
-<body>
-
-
+<body ng-cloak ng-controller="AppCtrl">
+    <br/>
+    <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+                  md-row-height-gt-md="1:1" md-row-height="4:3"
+                  md-gutter="8px" md-gutter-gt-sm="4px">
+        <md-grid-tile  ng-repeat="materia in materias track by $index"
+                       md-rowspan="1"
+                       md-colspan="1"
+                       ng-class="materia.meta.background"
+                ng-click="select(materia)">
+            <div>
+                <h2>{{materia.nombre}}</h2>
+                <div flex></div>
+                <md-icon md-svg-src="img/icons/{{materia.status.img}}.svg">
+                    <md-tooltip>{{materia.status.hint}}</md-tooltip>
+                </md-icon>
+                <span>{{materia.creador.nombre}}</span>
+                <span flex></span>
+                <h5>{{materia.codigo}}</h5>
+            </div>
+            <md-grid-tile-footer><h3>Ultima actualización: {{materia.ultimoPost | date:'EEE HH:mm'}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
     <!-- Angular Material Dependencies -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
@@ -29,6 +49,6 @@
     <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <!-- AQUI VA EL SCRIPT -->
-    <script src="javascripts/main.js"></script>
+    <script src="javascripts/test.js"></script>
 </body>
 </html>

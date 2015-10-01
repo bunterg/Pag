@@ -35,7 +35,7 @@ app.use('/main', main);
 app.use('/api', api);
 
 app.get('/test', function(req, res, next) {
-    res.render('./public/test.html');
+    res.render('test');
 });
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

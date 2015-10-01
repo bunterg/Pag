@@ -9,7 +9,6 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToa
     else
         $window.location.href = '/main';
 
-    //buscar materia
     //TODO AGREGAR BUSQUEDA
     $scope.buscar = function () {
         //$scope.isDisabled = true;
@@ -28,10 +27,7 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToa
             scope: $scope,        // use parent scope in template
             preserveScope: true,
             targetEvent: ev,
-            clickOutsideToClose: true,
-            locals: {
-                user: $scope.user
-            }
+            clickOutsideToClose: true
         })
             .then(function (logIn) {
                 console.log("dialog close");
@@ -42,12 +38,12 @@ myApp.controller('AppCtrl', function ($scope, $http, $animate, $mdDialog, $mdToa
 });
 
 
-function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window, user) {
+function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window) {
     $scope.registrar = function () {
         //REGISTRO DE USUARIO
-        $http.post('/api/users', user).
+        $http.post('/api/users', $scope.user).
             then(function (response) {
-                $cookies.putObject("usuario", response.data[0]);
+                $cookies.putObject("usuario", response.data);
                 $window.location.href = '/main';
             }, function (response) {
                 console.log("error");
@@ -55,7 +51,7 @@ function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window,
     };
     $scope.LogIn = function () {
         //Consulta en db de login
-        $http.get('/api/users', {params: {nombre_usuario: user.nombre_usuario, pass: user.pass}}).
+        $http.get('/api/users', {params: {nombre_usuario: $scope.user.nombre_usuario, pass: $scope.user.pass}}).
             then(function (response) {
                 if(response.data[0]===undefined) {
                     $mdToast.show(
