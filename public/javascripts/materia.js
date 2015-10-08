@@ -1,7 +1,7 @@
 /**
- * Created by Bernardo on 9/23/2015.
+ * Created by Bernardo on 10/3/2015.
  */
-var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
+var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute']);
 
 // <editor-fold desc="Dialogos">
 /*
@@ -120,12 +120,13 @@ function DialogControllerLogin($scope, $http, $cookies, $mdDialog, $mdToast, $wi
 
 myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialog, $location) {
     'use strict';
+    $scope.materiaB = '';
     //info variables locales
     var userID, user, init, getUser;
     //<editor-fold desc="METODOS INICIALES DE LA PAGINA">
     /*
-    * info Metodo getter USER ID
-    * */
+     * info Metodo getter USER ID
+     * */
     init = function (next) {
         if ($location.search() === undefined) {
             $scope.materiaB = '';
@@ -136,8 +137,8 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         next();
     };
     /*
-    * info Metodo set User
-    * */
+     * info Metodo set User
+     * */
     getUser = function () {
         if (userID === undefined) {
             $scope.user = {nombre: ''};
@@ -160,18 +161,33 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
 
     //info iniciando pag
     init(getUser);
-    $scope.select = function (materia) {
-        console.log(materia);
-        $window.location.href = '/materia#?id=' + materia._id;
-    };
-    /*
-        INFO METODOS BASICOS
-     */
+    /*var userID, id;
+    userID = $cookies.getObject("usuario");
+    id = $location.search().id;
+    if (userID === undefined) {
+        $scope.user = {nombre: ''};
+        $scope.noInicio = true;
+    } else {
+        $http.get('/api/users/' + userID + '?populate=materias').then(function (response) {
+            user = response.data;
+            $scope.tieneMaterias = user.materias.length > 0;
+            $scope.user = user;
+        }, function (data, status) {
+            console.error('Repos error', status, data);
+        });
+    }
+    $http.get('/api/materias/'+id).then(function (response){
+        console.log(response.data);
+    }, function (data, status) {
+        console.error('Repos error', status, data);
+    });*/
+    // <editor-fold desc="METODOS BASICOS">
+    //cerrar sesión
     $scope.salir = function () {
         $cookies.remove('usuario');
         $window.location.href = '/';
     };
-    // fixme BUSCAR MATERIA
+    //fixme buscar materia
     $scope.buscar = function () {
         $scope.isDisabled = true;
         $cookies.put('materiaBuscar', $scope.materiaB);
@@ -190,37 +206,32 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
             locals             : {
                 user: user
             }
-        }).then(
-            function () {
-                console.log("dialog close");
-            },
-            function () {
-                console.log('You cancelled the dialog.');
-            }
-        );
+        }).then(function () {
+            console.log("dialog close");
+        }, function () {
+            console.log('You cancelled the dialog.');
+        });
     };
     // mostrar dialog de login
     $scope.showLogIn = function (ev) {
         $mdDialog.show({
-            controller         : DialogControllerLogin,
-            templateUrl        : 'dialog.login.html',
-            parent             : angular.element(document.body),
-            scope              : $scope,        // use parent scope in template
-            preserveScope      : true,
-            targetEvent        : ev,
+            controller: DialogControllerLogin,
+            templateUrl: 'dialog.login.html',
+            parent: angular.element(document.body),
+            scope: $scope,        // use parent scope in template
+            preserveScope: true,
+            targetEvent: ev,
             clickOutsideToClose: true,
-            locals             : {
-                user    : $scope.user,
+            locals: {
+                user: $scope.user,
                 noInicio: $scope.noInicio
             }
-        }).then(
-            function (logIn) {
-                console.log(logIn);
-                console.log("dialog close");
-            },
-            function () {
-                console.log('You cancelled the dialog.');
-            }
-        );
+        }).then(function (logIn) {
+            console.log(logIn);
+            console.log("dialog close");
+        }, function () {
+            console.log('You cancelled the dialog.');
+        });
     };
+    // </editor-fold>
 });

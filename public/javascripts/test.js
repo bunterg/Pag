@@ -3,6 +3,7 @@
  */
 var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
 myApp.controller('AppCtrl', function ($scope) {
+    'use strict';
     $scope.materias = [{
         nombre: 'Título de la materia',
         codigo: 'iTxuMF',
@@ -21,6 +22,5 @@ myApp.controller('AppCtrl', function ($scope) {
     }];
     $scope.select = function (materia) {
         console.log(materia);
-    }
-
+    };
 });

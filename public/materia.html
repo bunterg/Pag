@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-    <title>LCC Principal</title>
+    <title>LCC Materia</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,43 +38,16 @@
             </md-input-container>
             <md-button class="md-raised md-warn" ng-click="salir()" ng-hide="noInicio">Salir</md-button>
         </div>
+        <h2 class="md-toolbar-tools-bottom">
+            <span class="md-flex">asd</span>
+        </h2>
     </md-toolbar>
     <!-- usar toolbar alto para incluir data adicional como subtitulos-->
     <br/>
 
-    <div layout="column" layout-align="center center" style="max-width: 90%;" ng-hide="tieneMaterias">
-        <h1 style="color: darkgray; max-width: 90%;"  ng-hide="noInicio">Upss! no tienes materias, usa el buscador para encontar, o crea una materia desde el boton inferior</h1>
-        <h1 style="color: darkgray; max-width: 90%;"  ng-show="noInicio">Upss! no iniciaste sesión asegurate de iniciar sesión para poder interactuar con tus asignaturas</h1>
-    </div>
-
-    <!-- Vista de materias del usuario-->
-     <div ng-show="tieneMaterias" >
-        <md-grid-list md-cols-md="2" md-cols-gt-md="6"
-                      md-row-height-gt-md="1:1" md-row-height="4:3"
-                      md-gutter="8px" md-gutter-gt-sm="4px"><!-- cambiar $index por funcion para filtrado -->
-            <md-grid-tile  ng-repeat="materia in user.materias track by $index"
-                           md-rowspan="1"
-                           md-colspan="2"
-                           ng-class="materia.meta.background"
-                           ng-click="select(materia)">
-                <div>
-                    <h2>{{materia.nombre | uppercase}}</h2>
-                    <div flex></div>
-                    <md-icon md-svg-src="img/icons/{{materia.status.img}}.svg">
-                        <md-tooltip>{{materia.status.hint | uppercase}}</md-tooltip>
-                    </md-icon>
-                    <span>{{materia.creador.nombre | uppercase}}</span>
-                    <span flex></span>
-                    <h5>{{materia.codigo}}</h5>
-                </div>
-                <md-grid-tile-footer><h3>Ultima actualización: {{materia.ultimoPost | date:'EEE HH:mm'}}</h3></md-grid-tile-footer>
-            </md-grid-tile>
-        </md-grid-list>
-    </div>
-
     <!-- aca va el action boton-->
     <div  ng-hide="noInicio">
-        <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="MateriaNueva" ng-click="crearMateria($event)">
+        <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="MateriaNueva" ng-click="crearPost($event)">
             <md-icon md-svg-src="img/icons/note-plus-outline.svg"></md-icon>
         </md-button>
     </div>
@@ -83,10 +56,11 @@
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
 
     <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <!-- AQUI VA EL SCRIPT -->
-    <script src="javascripts/main.js"></script>
+    <script src="javascripts/materia.js"></script>
 </body>
 </html>

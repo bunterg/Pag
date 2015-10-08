@@ -6,7 +6,7 @@ var mongoose = restful.mongoose;
 
 // Schema
 var Schema = new mongoose.Schema({
-    creador: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'},
+    creador: { _id: String, nombre: String, correo: String},
     //post: mongoose.Schema.Types.ObjectId, solo se puede tener un tolo objectid extra el otro ira en meta
     codigo: String,
     nombre: String,
@@ -14,7 +14,8 @@ var Schema = new mongoose.Schema({
     etiquetas: [String],
     status: mongoose.Schema.Types.Mixed,
     meta: mongoose.Schema.Types.Mixed,
-    ultimoPost: {type: Date, default: Date.now()}
+    ultimoPost: {type: Date, default: Date.now()},
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Posts'}]
 });
 
 // Return model
