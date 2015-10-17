@@ -1,8 +1,7 @@
 /**
  * Created by Bernardo on 9/23/2015.
  */
-var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
-
+//fixme put user cambio schema akjshdlkajlks
 // <editor-fold desc="Dialogos">
 /*
  *   INFO DIALOGO CREADOR MATERIAS

@@ -6,7 +6,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
     'use strict';
-    console.log(req);
+    //console.log(req);
     res.render('materia');
 });
 

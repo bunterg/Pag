@@ -1,4 +1,3 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies']);
 /*
 *   INFO DIALOG LOGIN
 * */
@@ -76,7 +75,10 @@ myApp.controller('AppCtrl', function ($scope, $mdDialog, $window, $cookies) {
             scope              : $scope,        // use parent scope in template
             preserveScope      : true,
             targetEvent        : ev,
-            clickOutsideToClose: true
+            clickOutsideToClose: true,
+            locals             : {
+                user: $scope.user
+            }
         })
             .then(function (logIn) {
                 console.log(logIn);

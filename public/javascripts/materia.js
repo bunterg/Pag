@@ -1,8 +1,6 @@
 /**
  * Created by Bernardo on 10/3/2015.
  */
-var myApp = angular.module('myApp', ['ngMaterial', 'ngCookies', 'ngRoute']);
-
 // <editor-fold desc="Dialogos">
 /*
  *   INFO DIALOGO CREADOR MATERIAS
@@ -121,17 +119,30 @@ function DialogControllerLogin($scope, $http, $cookies, $mdDialog, $mdToast, $wi
 myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialog, $location) {
     'use strict';
     $scope.materiaB = '';
+    $scope.materia = {};
     //info variables locales
-    var userID, user, init, getUser;
+    var userID, user, init, getUser, materiaB;
     //<editor-fold desc="METODOS INICIALES DE LA PAGINA">
     /*
      * info Metodo getter USER ID
      * */
     init = function (next) {
         if ($location.search() === undefined) {
-            $scope.materiaB = '';
+            $window.location.href = '/main';
         } else {
-            $scope.materiaB = $location.search().buscar;
+            materiaB = $location.search().id;
+            $http.get('/api/materias/' + materiaB).
+                then(function (response) {
+                    if (response.data === undefined) {
+                        console.log(response);
+                    } else {
+                        console.log(response.data);
+                        $scope.materia = response.data;
+                    }
+                }, function (response) {
+                    console.log(response);
+                    $mdDialog.cancel();
+                });
         }
         userID = $cookies.getObject("usuario");
         next();
@@ -161,26 +172,6 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
 
     //info iniciando pag
     init(getUser);
-    /*var userID, id;
-    userID = $cookies.getObject("usuario");
-    id = $location.search().id;
-    if (userID === undefined) {
-        $scope.user = {nombre: ''};
-        $scope.noInicio = true;
-    } else {
-        $http.get('/api/users/' + userID + '?populate=materias').then(function (response) {
-            user = response.data;
-            $scope.tieneMaterias = user.materias.length > 0;
-            $scope.user = user;
-        }, function (data, status) {
-            console.error('Repos error', status, data);
-        });
-    }
-    $http.get('/api/materias/'+id).then(function (response){
-        console.log(response.data);
-    }, function (data, status) {
-        console.error('Repos error', status, data);
-    });*/
     // <editor-fold desc="METODOS BASICOS">
     //cerrar sesión
     $scope.salir = function () {

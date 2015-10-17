@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res) {
     'use strict';
-    console.log(req);
+    //console.log(req);
     res.render('./public/index.html');
 });
 

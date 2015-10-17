@@ -40,7 +40,7 @@ var materiaBackground = function () {
 Materia.methods(['get', 'put', 'post']);
 Materia.before('post', function (req, res, next) {
     'use strict';
-    console.log(res);
+    //console.log(res);
     // INFO DEFINICIÓN DE DATOS ADICIONALES
     req.body.status = materiaStatus(2);
     req.body.meta = materiaBackground();
@@ -50,7 +50,7 @@ Materia.before('post', function (req, res, next) {
 });
 Materia.before('put', function (req, res, next) {
     'use strict';
-    console.log(res);
+    //console.log(res);
     // INFO ACTUALIZAR DATOS DE MATERIA
     req.body.status = materiaStatus(req.body.status.pos);
     req.body.ultimoPost = Date.now();
@@ -65,7 +65,7 @@ Materia.register(router, '/materias');
 User.methods(['get', 'put', 'post']);
 User.after('get', function (req, res, next) {
     'use strict';
-    console.log(res);
+    //console.log(res);
     // info ocultar datos de conexión
     delete req.body.pass;
     delete req.body.nombre_usuario;
@@ -76,7 +76,7 @@ User.register(router, '/users');
 Post.methods(['get', 'put', 'post', 'delete']);
 Post.after('post', function (req, res, next) {
     'use strict';
-    console.log(res);
+    //console.log(res);
     // INFO actualizacion de ultimo de post en materia
     Materia.findOne({_id: req.body.materia}, function (error, materia) {
         if (error) {
@@ -94,7 +94,7 @@ Post.after('post', function (req, res, next) {
 });
 Post.after('put', function (req, res, next) {
     'use strict';
-    console.log(res);
+    //console.log(res);
     // INFO actualizacion de ultimo de post en materia
     Materia.findOne({_id: req.body.materia}, function (err, materia) {
         if (err) {

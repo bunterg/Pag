@@ -33,13 +33,14 @@
             <md-input-container md-no-float  id="search-bar" style="padding-top: 24px;" flex layout-align="center center">
                 <md-whiteframe class="md-whiteframe-z1" style="background: white; border-radius: 4px;min-width: 70%"  layout layout-margin layout-padding layout-align="center center">
                     <md-icon md-svg-src="img/icons/magnify.svg" style="color: grey;"></md-icon>
-                    <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materiaB">
+                    <input type="text" placeholder="Buscar en post" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materiaB">
                 </md-whiteframe>
             </md-input-container>
             <md-button class="md-raised md-warn" ng-click="salir()" ng-hide="noInicio">Salir</md-button>
         </div>
         <h2 class="md-toolbar-tools-bottom">
-            <span class="md-flex">asd</span>
+            <span>{{ materia.nombre }}</span>
+            <span>{{ materia.codigo }}</span>
         </h2>
     </md-toolbar>
     <!-- usar toolbar alto para incluir data adicional como subtitulos-->
@@ -61,6 +62,7 @@
     <!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
     <!-- AQUI VA EL SCRIPT -->
+    <script src="javascripts/myApp.js"></script>
     <script src="javascripts/materia.js"></script>
 </body>
 </html>

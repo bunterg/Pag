@@ -38,7 +38,7 @@ app.use('/api', api);
 
 app.get('/test', function (req, res) {
     'use strict';
-    console.log(req);
+    //console.log(req);
     res.render('test');
 });
 // catch 404 and forward to error handler

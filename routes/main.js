@@ -7,7 +7,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function (req, res) {
     'use strict';
-    console.log(req);
+    //console.log(req);
     res.render('main');
 });
 

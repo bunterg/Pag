@@ -6,6 +6,6 @@
     <option maxerr="50" />
     <option node="true" />
     <option nomen="true" />
-    <option predef="angular, document" />
+    <option predef="angular, document, myApp" />
   </component>
 </project>
