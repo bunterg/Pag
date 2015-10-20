@@ -40,11 +40,28 @@
         </div>
         <h2 class="md-toolbar-tools-bottom">
             <span>{{ materia.nombre }}</span>
-            <span>{{ materia.codigo }}</span>
+            <span style="margin-left: 15%; word-spacing: 50px;">Codigo: {{ materia.codigo }}</span>
         </h2>
     </md-toolbar>
     <!-- usar toolbar alto para incluir data adicional como subtitulos-->
     <br/>
+    <!-- Vista de post -->
+    <div ng-hide="hayPost">
+        <md-grid-list md-cols-md="1" md-cols-gt-md="6"
+                      md-row-height-gt-md="1:1" md-row-height="4:3"
+                      md-gutter="8px" md-gutter-gt-sm="4px"><!-- cambiar $index por funcion para filtrado -->
+            <md-grid-tile  ng-repeat="post in materia.posts track by $index"
+                           md-rowspan="1"
+                           md-colspan="1"
+                           ng-class="post.etiqueta"
+                           ng-click="select(post)">
+                <div>
+                    <h2>{{post.titulo | uppercase}}</h2>
+                </div>
+                <md-grid-tile-footer><h3>{{materia.creador.nombre | uppercase}}</h3></md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
 
     <!-- aca va el action boton-->
     <div  ng-hide="noInicio">

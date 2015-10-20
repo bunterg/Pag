@@ -17,6 +17,22 @@
     </style>
 </head>
 <body ng-cloak ng-controller="AppCtrl">
+    <md-toolbar class="md-primary md-tall">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="toggleRight()"
+                       ng-hide="isOpenRight()"
+                       class="md-primary"
+                        style="margin-left: -10%;">
+                <md-icon md-svg-src="img/icons/menu.svg" style="color: white;" aria-label="menu"></md-icon>
+            </md-button>
+            <md-input-container md-no-float  id="search-bar" style="padding-top: 24px;" flex layout-align="center center" flex>
+                <md-whiteframe class="md-whiteframe-z1" style="background: white; border-radius: 4px;min-width: 70%" layout layout-margin layout-padding layout-align="center center">
+                    <md-icon md-svg-src="img/icons/magnify.svg" style="color: grey;"></md-icon>
+                    <input type="text" placeholder="Materia (Codigo)" ng-disabled="isDisabled" style="min-width:90%;" ng-keyup="$event.keyCode == 13 && buscar()" ng-model="materiaB">
+                </md-whiteframe>
+            </md-input-container>
+        </div>
+    </md-toolbar>
     <br/>
     <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
                   md-row-height-gt-md="1:1" md-row-height="4:3"
@@ -39,6 +55,21 @@
             <md-grid-tile-footer><h3>Ultima actualización: {{materia.ultimoPost | date:'EEE HH:mm'}}</h3></md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
+
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Sidenav Right</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <h2 hide-sm ng-hide="noInicio">
+                <span>{{user.nombre | uppercase}}</span>
+            </h2>
+            <md-button class="md-raised md-primary" ng-click="showLogIn($event)" style=" background: #43A047;" ng-show="noInicio">Acceder</md-button>
+            <div layout-align="center end">
+                <md-button class="md-raised md-warn" ng-click="salir()" ng-hide="noInicio">Salir</md-button>
+            </div>
+        </md-content>
+    </md-sidenav>
     <!-- Angular Material Dependencies -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>

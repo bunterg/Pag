@@ -5,53 +5,20 @@
 /*
  *   INFO DIALOGO CREADOR MATERIAS
  * */
-function DialogController($scope, $cookies, $mdDialog, $http, $window, user) {
+function DialogController($scope, $mdDialog, $http, $window, user, etiquetas, id) {
     'use strict';
-    $scope.materiac = {
-        etiquetas : ['General']
-    };
-    $scope.etiquetasPersonalizadas = [];
-    /*
-     * info insercion de chip personalizados (permite agregar data
-     * */
-    $scope.insertar = function ($chip) {
-        console.log("inserte: ", $chip);
-        return $chip;
-    };
-    /*
-     * info actualizar Usuario
-     * */
-    var actualizar = function (materia) {
-        user.materias = user.materias.concat(materia._id);
-        $http.put('/api/users/' + user._id, user).then(
-            function (response) {
-                $cookies.putObject("usuario", response.data._id);
-                $http.put('/api/materias/' + materia._id, materia).then(
-                    function (response) {
-                        console.log(response);
-                        $window.location.reload();
-                    },
-                    function (data, status) {
-                        console.error('put materia error', status, data);
-                    }
-                );
-            },
-            function (data, status) {
-                console.error('put user error', status, data);
-            }
-        );
+    $scope.etiquetas = etiquetas;
+    $scope.post = {
+        creador: user._id,
+        materia: id
     };
     /*
      * info crear materia
      * */
-    $scope.crearMateria = function () {
-        var materia = $scope.materiac;
-        materia.etiquetas =  $scope.materiac.etiquetas.concat($scope.etiquetasPersonalizadas);
-        materia.creador = {_id: user._id, nombre: user.nombre, correo: user.correo};
-
-        $http.post('/api/materias', materia).then(function (response) {
-            materia = response.data;
-            actualizar(materia);
+    $scope.crearPost = function () {
+        $http.post('/api/posts', $scope.post).then(function (response) {
+            console.log(response);
+            $window.location.reload();
         }, function (data, status) {
             console.error('put user error', status, data);
         });
@@ -131,13 +98,14 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
             $window.location.href = '/main';
         } else {
             materiaB = $location.search().id;
-            $http.get('/api/materias/' + materiaB).
+            $http.get('/api/materias/' + materiaB + '?populate=posts').
                 then(function (response) {
                     if (response.data === undefined) {
                         console.log(response);
                     } else {
-                        console.log(response.data);
+                        $scope.hayPosts = response.data.posts.length !== 0;
                         $scope.materia = response.data;
+                        console.log($scope.materia.posts);
                     }
                 }, function (response) {
                     console.log(response);
@@ -187,15 +155,17 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         //$window.location.href = '/main/buscar?short_id='+$scope.materia;
     };
     // mostrar creador de materias
-    $scope.crearMateria = function (ev) {
+    $scope.crearPost = function (ev) {
         $mdDialog.show({
             controller         : DialogController,
-            templateUrl        : 'dialog.materia.html',
+            templateUrl        : 'dialog.post.html',
             parent             : angular.element(document.body),
             targetEvent        : ev,
             clickOutsideToClose: true,
             locals             : {
-                user: user
+                user: user,
+                id: $scope.materia._id,
+                etiquetas: $scope.materia.etiquetas
             }
         }).then(function () {
             console.log("dialog close");

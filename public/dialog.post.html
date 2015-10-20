@@ -1,0 +1,44 @@
+<md-dialog aria-label="Crear Post" flex="77">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Crear Post</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column">
+                <h2>Creacion de post</h2>
+                <md-input-container>
+                    <label>Titulo del Post</label>
+                    <input ng-model="post.titulo" title="">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Contenido</label>
+                    <textarea ng-model="post.contenido" columns="1"></textarea>
+                </md-input-container>
+                <br/>
+
+                <md-input-container>
+                    <label>Etiqueta</label>
+                    <md-select ng-model="post.etiqueta">
+                        <md-option ng-value="$index" ng-repeat="etiqueta in etiquetas track by $index">{{ etiqueta }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <br/>
+
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row" >
+            <md-button ng-click="hide()"  class="md-warn">
+                Cancelar
+            </md-button>
+            <md-button ng-click="crearPost()" class="md-raised md-primary" style="margin-right:20px;">
+                Registrar
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

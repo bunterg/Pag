@@ -74,15 +74,19 @@ User.after('get', function (req, res, next) {
 User.register(router, '/users');
 
 Post.methods(['get', 'put', 'post', 'delete']);
+Post.before('post', function (req, res, next) {
+    'use strict';
+    req.body.etiqueta = colores[req.body.etiqueta];
+    next();
+});
 Post.after('post', function (req, res, next) {
     'use strict';
-    //console.log(res);
     // INFO actualizacion de ultimo de post en materia
     Materia.findOne({_id: req.body.materia}, function (error, materia) {
         if (error) {
             return console.log(error);
         }
-        materia.posts = materia.posts.concat(req.body._id);
+        materia.posts = materia.posts.concat(res.locals.bundle._id);
         materia.ultimoPost = Date.now();
         materia.save(function (err) {
             if (err) {
