@@ -1,7 +1,6 @@
 /**
  * Created by Bernardo on 9/23/2015.
  */
-//fixme put user cambio schema akjshdlkajlks
 // <editor-fold desc="Dialogos">
 /*
  *   INFO DIALOGO CREADOR MATERIAS
@@ -170,15 +169,21 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         $cookies.remove('usuario');
         $window.location.href = '/';
     };
-    // fixme BUSCAR MATERIA
+    /*
+     *   info busqueda de materias
+     * */
     $scope.buscar = function () {
         $scope.isDisabled = true;
-        $cookies.put('materiaBuscar', $scope.materiaB);
-        //codigo o nombre?
-        //$window.location.href = '/main/buscar?nombre='+$scope.materia;
-        //$window.location.href = '/main/buscar?short_id='+$scope.materia;
+        $http.get('/api/materias?codigo=' + $scope.materiaB).then(function (response) {
+            $window.location.href = '/materia#?id=' + response.data[0]._id;
+        }, function (status, data) {
+            console.log(status + "--" + data);
+            $scope.isDisabled = false;
+        });
     };
-    // mostrar creador de materias
+    /*
+    *   info abrir dialogo crear materia
+    * */
     $scope.crearMateria = function (ev) {
         $mdDialog.show({
             controller         : DialogController,
@@ -198,7 +203,9 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
             }
         );
     };
-    // mostrar dialog de login
+    /*
+    *   info mostrar dialog de login
+    * */
     $scope.showLogIn = function (ev) {
         $mdDialog.show({
             controller         : DialogControllerLogin,

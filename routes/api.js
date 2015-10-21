@@ -11,6 +11,19 @@ var Post = require('../models/post');
 // estado de materia
 var materiaStatusHint = ['Hay actividades', 'Actividades Suspendidas', 'No hay Actividades', 'Entrega de actividades'];
 var materiaStatusImg = ['bell', 'bell-off', 'bell-outline', 'bell-ring'];
+var materiaStatusJ = [{
+    icon: 'bell',
+    name: 'Hay actividades'
+}, {
+    icon: 'bell-off',
+    name: 'Actividades Suspendidas'
+}, {
+    icon: 'bell-outline',
+    name: 'No hay Actividades'
+}, {
+    icon: 'bell-ring',
+    name: 'Entrega de actividades'
+}];
 // css colores para el cambio de colores en vistas
 var colores = ['gray', 'green', 'yellow', 'blue', 'darkBlue', 'deepBlue', 'purple', 'lightPurple', 'red', 'pink'];
 
@@ -52,11 +65,14 @@ Materia.before('put', function (req, res, next) {
     'use strict';
     //console.log(res);
     // INFO ACTUALIZAR DATOS DE MATERIA
-    req.body.status = materiaStatus(req.body.status.pos);
     req.body.ultimoPost = Date.now();
     console.log(req.body.codigo);
     if (req.body.codigo === undefined) {
         req.body.codigo = shortId(req.body._id);
+    }
+    if (req.body.status.hint === undefined) {
+        console.log('aux!!!!!!!!!!!!!!!!!!!!!! aqui deberia hacer el cambio:' + req.body.status);
+        req.body.status = materiaStatus(req.body.status);
     }
     next();
 });
@@ -115,6 +131,12 @@ Post.after('put', function (req, res, next) {
 });
 Post.register(router, '/posts');
 // </editor-fold>
+
+router.get('/statusIcon', function (req, res) {
+    'use strict';
+    //console.log(req);
+    res.send(materiaStatusJ);
+});
 
 // Return router
 module.exports = router;

@@ -47,7 +47,7 @@ function DialogController($scope, $http, $cookies, $mdDialog, $mdToast, $window,
     };
     //</editor-fold>
 }
-myApp.controller('AppCtrl', function ($scope, $mdDialog, $window, $cookies) {
+myApp.controller('AppCtrl', function ($scope, $mdDialog, $window, $cookies, $http) {
     'use strict';
     $scope.isDisabled = false;
     $scope.user = {};
@@ -55,13 +55,17 @@ myApp.controller('AppCtrl', function ($scope, $mdDialog, $window, $cookies) {
     if ($cookies.getObject("usuario") !== undefined) {
         $window.location.href = '/main';
     }
-    // fixme AGREGAR BUSQUEDA
+    /*
+    *   info busqueda de materias
+    * */
     $scope.buscar = function () {
-        //$scope.isDisabled = true;
-        $cookies.put('materiaBuscar', $scope.materiaB);
-        //codigo o nombre?
-        //$window.location.href = '/main/buscar?nombre='+$scope.materia;
-        //$window.location.href = '/main/buscar?short_id='+$scope.materia;
+        $scope.isDisabled = true;
+        $http.get('/api/materias?codigo=' + $scope.materiaB).then(function (response) {
+            $window.location.href = '/materia#?id=' + response.data[0]._id;
+        }, function (status, data) {
+            console.log(status + "--" + data);
+            $scope.isDisabled = false;
+        });
     };
 
     /*

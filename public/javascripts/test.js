@@ -22,6 +22,19 @@ myApp.controller('AppCtrl', function ($scope, $location, $window, $http, $cookie
     $scope.select = function (materia) {
         console.log(materia);
     };
+    $scope.items = [{
+        icon: 'bell',
+        name: 'Hay actividades'
+    }, {
+        icon: 'bell-off',
+        name: 'Actividades Suspendidas'
+    }, {
+        icon: 'bell-outline',
+        name: 'No hay Actividades'
+    }, {
+        icon: 'bell-ring',
+        name: 'Entrega de actividades'
+    }];
     //info variables locales
     var userID, user, init, getUser;
     //<editor-fold desc="METODOS INICIALES DE LA PAGINA">
@@ -61,6 +74,9 @@ myApp.controller('AppCtrl', function ($scope, $location, $window, $http, $cookie
     //info iniciando pag
     init(getUser);
 
+    $scope.listItemClick = function (index) {
+        console.log(index);
+    };
     function buildToggler(navID) {
         return function () {
             $mdSidenav(navID)

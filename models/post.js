@@ -6,7 +6,7 @@ var mongoose = restful.mongoose;
 
 // Schema
 var Schema = new mongoose.Schema({
-    creador: { _id: String, nombre: String, correo: String},
+    creador: { _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Users'}, nombre: String, correo: String},
     materia: {type: mongoose.Schema.Types.ObjectId, ref: 'Materias'},
     titulo: String,
     contenido: String,

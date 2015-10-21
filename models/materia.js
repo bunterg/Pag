@@ -15,7 +15,11 @@ var Schema = new mongoose.Schema({
     status: mongoose.Schema.Types.Mixed,
     meta: mongoose.Schema.Types.Mixed,
     ultimoPost: {type: Date, default: Date.now()},
-    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Posts'}]
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Posts'}],
+    evento: [{
+        fecha: Date,
+        titulo: String
+    }]
 });
 
 // Return model

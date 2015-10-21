@@ -1,0 +1,33 @@
+<md-dialog aria-label="Crear Materia" flex="77">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Crear Evento</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column">
+                <h2 class="md-title">Fecha del evento</h2>
+                <md-datepicker ng-model="evento.fecha" md-placeholder="Introduzca fache"></md-datepicker>
+                <br/>
+                <md-input-container>
+                    <label>Titulo del evento</label>
+                    <input ng-model="evento.titulo" title=""  md-maxlength="40" maxlength="40">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row" >
+            <md-button ng-click="hide()"  class="md-warn">
+                Cancelar
+            </md-button>
+            <md-button ng-click="crearEvento()" class="md-raised md-primary" style="margin-right:20px;">
+                Registrar
+            </md-button>
+        </div>
+    </form>
+</md-dialog>
+

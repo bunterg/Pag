@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/lcc');
 var index = require('./routes/index');
 var main = require('./routes/main');
 var materia = require('./routes/materia');
+var post = require('./routes/post');
 var api = require('./routes/api');
 
 var app = express();
@@ -35,6 +36,7 @@ app.use('/', index);
 app.use('/main', main);
 app.use('/materia', materia);
 app.use('/api', api);
+app.use('/post', post);
 
 app.get('/test', function (req, res) {
     'use strict';
