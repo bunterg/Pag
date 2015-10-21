@@ -112,6 +112,11 @@ Post.after('post', function (req, res, next) {
     });
     next();
 });
+Post.before('put', function (req, res, next) {
+    'use strict';
+    req.body.respuestas[req.body.respuestas.length - 1].fecha = Date.now();
+    next();
+});
 Post.after('put', function (req, res, next) {
     'use strict';
     //console.log(res);

@@ -67,7 +67,7 @@ function DialogControllerMateria($scope, $http, $mdDialog, $window, materia) {
     * */
     $scope.editMateria = function () {
         $scope.materia.etiquetas = $scope.materia.etiquetas.concat($scope.nuevasEtiquetas);
-        $http.put('/api/materias/' + $scope.materia._id, $scope.materia).then(function (res) {
+        $http.put('/api/materias/' + $scope.materia._id, $scope.materia).then(function () {
             $window.location.reload();
         }, function (data, status) {
             console.log('eror: ' + status + ' --: ' + data);
@@ -174,29 +174,7 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         userID, user,
         materiaB, colores = ['gray', 'green', 'yellow', 'blue', 'darkBlue', 'deepBlue', 'purple', 'lightPurple', 'red', 'pink'],
         Etiqueta = '', busqueda = false;
-    $scope.color = function (id) {
-        return colores[id];
-    };
-    $scope.filtrado = function (post) {
-        if (!busqueda) {
-            if (Etiqueta !== '') {
-                return post.etiqueta === Etiqueta;
-            }
-            return true;
-        }
-        return post.titulo.indexOf($scope.materiaB) >= 0;
-    };
-    /*
-    *   info metodo para setear variable filtro
-    * */
-    $scope.listItemClick = function (id) {
-        $scope.hayFiltro = id !== -1;
-        if ($scope.hayFiltro) {
-            Etiqueta = colores[id];
-        } else {
-            Etiqueta = '';
-        }
-    };
+
     //<editor-fold desc="METODOS INICIALES DE LA PAGINA">
     /*
      * info Metodo getter USER ID
@@ -214,21 +192,19 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
                         $scope.materia = response.data;
                         $scope.hayPosts = response.data.posts.length !== 0;
                         $scope.hayEventos = response.data.evento.length !== 0;
+                        userID = $cookies.getObject("usuario");
+                        next();
                     }
                 }, function (response) {
                     console.log(response);
                     $mdDialog.cancel();
                 });
         }
-        userID = $cookies.getObject("usuario");
-        next();
     };
     function revisarMaterias(materias, id) {
         var i, m;
-        console.log(materias);
         for (i = 0; i < materias.length; i++) {
             m = materias[i];
-            console.log(m);
             if (m._id === id) {
                 return true;
             }
@@ -245,7 +221,6 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         } else {
             $http.get('/api/users/' + userID).then(function (response) {
                 user = response.data;
-                console.log($scope.materia.creador);
                 $scope.esProfesor = user._id === $scope.materia.creador._id;
                 $scope.tieneEstaMateria = $scope.esProfesor || revisarMaterias(user.materias, $scope.materia._id);
                 if (user.materias !== undefined) {
@@ -264,6 +239,37 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
     //info iniciando pag
     init(getUser);
 
+    // <editor-fold desc="Metodos de Materia">
+    /*
+     *   INFO get color para fondo
+     **/
+    $scope.color = function (id) {
+        return colores[id];
+    };
+    /*
+     *   info metodo filtrado de post
+     * */
+    $scope.filtrado = function (post) {
+        if (!busqueda) {
+            if (Etiqueta !== '') {
+                return post.etiqueta === Etiqueta;
+            }
+            return true;
+        }
+        return post.titulo.indexOf($scope.materiaB) >= 0;
+    };
+    /*
+     *   info metodo para setear variable filtro
+     * */
+    $scope.listItemClick = function (id) {
+        $scope.hayFiltro = id !== -1;
+        if ($scope.hayFiltro) {
+            Etiqueta = colores[id];
+        } else {
+            Etiqueta = '';
+        }
+    };
+    // </editor-fold>
     // <editor-fold desc="METODOS BASICOS">
     // info cerrar sesión
     $scope.salir = function () {
@@ -279,6 +285,7 @@ myApp.controller('AppCtrl', function ($scope, $http, $window, $cookies, $mdDialo
         $http.put('/api/users/' + user._id, user).then(
             function (response) {
                 $cookies.putObject("usuario", response.data._id);
+                $window.location.reload();
             },
             function (data, status) {
                 console.error('put user error', status, data);
